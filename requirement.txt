@@ -1,0 +1,9 @@
+--extra-index-url https://download.pytorch.org/whl/cu118
+torch==2.0.0
+networkx==2.5
+gym==0.17.3
+pandas
+matplotlib==3.4.1
+seaborn
+pickle5
+numpy<1.24
