@@ -4,6 +4,6 @@ networkx==2.5
 gym==0.17.3
 pandas
 matplotlib==3.4.1
-seaborn
+seaborn==0.12.2
 pickle5
 numpy<1.24

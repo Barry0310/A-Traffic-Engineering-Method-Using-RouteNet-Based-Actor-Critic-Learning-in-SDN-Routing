@@ -141,7 +141,7 @@ if __name__ == "__main__":
 
     plt.xlim((0, 50.0))
     plt.xticks(np.arange(0, 50, 8))
-    plt.grid(color='gray')
+    #plt.grid(color='gray')
     plt.tight_layout()
 
     # Define some hatches
