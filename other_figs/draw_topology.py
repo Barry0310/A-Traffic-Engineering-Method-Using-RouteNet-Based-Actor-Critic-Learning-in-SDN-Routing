@@ -160,10 +160,10 @@ for r in rel:
     print('average clustering coefficient', networkx.average_clustering(D))
     ce = [c for n, c in networkx.degree_centrality(D).items()]
     print('centrality', np.average(ce))
-    plt.clf()
-    pos = networkx.spring_layout(env.graph, k=4)
-    networkx.draw(env.graph, pos, with_labels=True)
-    plt.savefig(directory + '/' + env.graph_topology_name + '.png')
+    #plt.clf()
+    #pos = networkx.spring_layout(env.graph, k=4)
+    #networkx.draw(env.graph, pos, with_labels=True)
+    #plt.savefig(directory + '/' + env.graph_topology_name + '.png')
     print()
 
 # import networkx as nx
