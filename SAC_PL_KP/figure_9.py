@@ -49,11 +49,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     method = "SAC_PL_KP"
-    method1 = "PPO_PL_KP"#"PPO_L_SP"
-    method1ls = "PPO_PL_KP+LS"#"PPO_L_SP+LS"
+    method1 = "PPO_L_SP"
+    method1ls = "PPO_L_SP+LS"
     differentiation_str = args.d[0]
     directory = args.p[0]+'/'+differentiation_str
-    enero_directory = args.p[0]+'/'+"Enero_3top_15_B_PATH_LINK_TEST_kp"#'SP_3top_15_B_NEW'
+    enero_directory = args.p[0]+'/'+'SP_3top_15_B_NEW'
 
     uti_sim_anneal = []
     #uti_SAP = []

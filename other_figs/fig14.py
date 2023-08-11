@@ -49,11 +49,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     method = "SAC_PL_KP"
-    method1 = "PPO_L_SP"
-    method1ls = "PPO_L_SP+LS"
+    method1 = "PPO_PL_KP"#"PPO_L_SP"
+    method1ls = "PPO_PL_KP+LS"#"PPO_L_SP+LS"
     differentiation_str = args.d[0]
     directory = args.p[0]+'/'+differentiation_str
-    enero_directory = args.p[0]+'/'+'SP_3top_15_B_NEW'
+    enero_directory = args.p[0]+'/'+"Enero_3top_15_B_PATH_LINK_TEST_kp"#'SP_3top_15_B_NEW'
 
     uti_sim_anneal = []
     #uti_SAP = []
@@ -75,13 +75,10 @@ if __name__ == "__main__":
     filename_list = []
     X_axis = []
 
-    if not os.path.exists("./Images"):
-        os.makedirs("./Images")
+    if not os.path.exists("../Figs"):
+        os.makedirs("../Figs")
 
-    path_to_dir = "./Images/EVALUATION/"+differentiation_str+'/'
-
-    if not os.path.exists(path_to_dir):
-        os.makedirs(path_to_dir)
+    path_to_dir = "../Figs/"
 
     aux_path_to_DEFO_results = "../Enero_datasets/DEFOResults/results-1-link_capacity-unif-05-1-zoo/"
 
