@@ -107,13 +107,13 @@ if __name__ == "__main__":
                     else:
                         dd_Hurricane.loc[it, K20] = results[9]
                     it += 1
-        K25_eval_res_folder2 = folder + differentiation_str3 + '/'
+        K25_eval_res_folder = folder + differentiation_str3 + '/'
         for subdir, dirs, files in os.walk(K25_eval_res_folder):
             it = 0
             for file in files:
                 if file.endswith((".pckl")):
                     results = []
-                    path_to_pckl_rewards = K25_eval_res_folder2 + topology_eval_name + '/'
+                    path_to_pckl_rewards = K25_eval_res_folder + topology_eval_name + '/'
                     with open(path_to_pckl_rewards+file, 'rb') as f:
                         results = pickle.load(f)
                     if folder==folders[0]:
