@@ -22,8 +22,10 @@ Optimization with Deep Reinforcement Learning](https://arxiv.org/pdf/2109.10883.
     - test: `python eval.py`
     - link failure: `python eval_linkfailure.py`
     - zoo test: `python eval_zoo.py`
-- other_figs 中 draw_topology、fig9、10、11 可直接執行
-    - fig14 指令
+- other_figs 中 draw_topology、fig9、10、11、12 可直接執行
+    - fig15 指令
     ```
-    python fig14.py -d Enero_3top_15_B_SAC49 -p ../Enero_datasets/rwds-results-1-link_capacity-unif-05-1-zoo
+    python fig15.py -d Enero_3top_15_B_SAC49 -p ../Enero_datasets/rwds-results-1-link_capacity-unif-05-1-zoo
     ```
+
+- SAC_PL_KP 中 SAC49 為 K=20，SAC66 為 K=25，SAC67 為 K=15
