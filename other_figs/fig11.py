@@ -34,9 +34,9 @@ if __name__ == "__main__":
     # python figures_5_and_6.py -d SP_3top_15_B_NEW
 
     enero = "SP_3top_15_B_NEW"
-    method = "SAC_PL_KP"
+    method = "PPO_PL_SP"
     method2 = "PPO_PL_KP"
-    differentiation_str = "Enero_3top_15_B_SAC49"
+    differentiation_str = "Enero_3top_15_B_PATH_LINK_TEST"
     differentiation_str2 = "Enero_3top_15_B_PATH_LINK_TEST_kp"
 
     drl_top1_uti = []
@@ -60,20 +60,36 @@ if __name__ == "__main__":
     cost_ls_top3 = []
     cost_enero_top3 = []
 
+
     if not os.path.exists("../Figs"):
         os.makedirs("../Figs")
 
     path_to_dir = "../Figs/"
 
 
-    dd_Eli = pd.DataFrame(columns=[method, method2, method+'+LS', method2+'+LS', 'Topologies'])
-    dd_Janet = pd.DataFrame(columns=[method, method2, method+'+LS', method2+'+LS', 'Topologies'])
-    dd_Hurricane = pd.DataFrame(columns=[method, method2, method+'+LS', method2+'+LS', 'Topologies'])
+    dd_Eli = pd.DataFrame(columns=['PPO_L_SP', method, method2, 'PPO_L_SP+LS', method+'+LS', method2+'+LS', 'Topologies'])
+    dd_Janet = pd.DataFrame(columns=['PPO_L_SP', method, method2, 'PPO_L_SP+LS', method+'+LS', method2+'+LS', 'Topologies'])
+    dd_Hurricane = pd.DataFrame(columns=['PPO_L_SP', method, method2, 'PPO_L_SP+LS', method+'+LS', method2+'+LS', 'Topologies'])
 
     # Iterate over all topologies and evaluate our DRL agent on all TMs
     for folder in folders:
-        #enero_eval_res_folder = folder + enero + '/'
+        enero_eval_res_folder = folder + enero + '/'
         topology_eval_name = folder.split('NEW_')[1].split('/')[0]
+        for subdir, dirs, files in os.walk(enero_eval_res_folder):
+            it = 0
+            for file in files:
+                if file.endswith((".pckl")):
+                    results = []
+                    path_to_pckl_rewards = enero_eval_res_folder + topology_eval_name + '/'
+                    with open(path_to_pckl_rewards+file, 'rb') as f:
+                        results = pickle.load(f)
+                    if folder==folders[0]:
+                        dd_Eli.loc[it] = [results[9],0, 0,results[3], 0, 0,topology_eval_name]
+                    elif folder==folders[1]:
+                        dd_Janet.loc[it] = [results[9],0, 0,results[3], 0, 0,topology_eval_name]
+                    else:
+                        dd_Hurricane.loc[it] = [results[9],0, 0,results[3], 0, 0,topology_eval_name]
+                    it += 1
         drl_eval_res_folder = folder + differentiation_str + '/'
         for subdir, dirs, files in os.walk(drl_eval_res_folder):
             it = 0
@@ -84,11 +100,14 @@ if __name__ == "__main__":
                     with open(path_to_pckl_rewards+file, 'rb') as f:
                         results = pickle.load(f)
                     if folder==folders[0]:
-                        dd_Eli.loc[it] = [results[9], 0, results[3], 0, topology_eval_name]
+                        dd_Eli.loc[it, method] = results[9]
+                        dd_Eli.loc[it, method+'+LS'] = results[3]
                     elif folder==folders[1]:
-                        dd_Janet.loc[it] = [results[9], 0, results[3], 0, topology_eval_name]
+                        dd_Janet.loc[it, method] = results[9]
+                        dd_Janet.loc[it, method + '+LS'] = results[3]
                     else:
-                        dd_Hurricane.loc[it] = [results[9], 0, results[3], 0, topology_eval_name]
+                        dd_Hurricane.loc[it, method] = results[9]
+                        dd_Hurricane.loc[it, method + '+LS'] = results[3]
                     it += 1
         drl_eval_res_folder2 = folder + differentiation_str2 + '/'
         for subdir, dirs, files in os.walk(drl_eval_res_folder):
@@ -123,7 +142,7 @@ if __name__ == "__main__":
 
 
     # Define some hatches
-    hatches = cycle(['|', '', '*', '/'])
+    hatches = cycle(['\\', '-', '|', '', '*', '/'])
     cdf = pd.concat([dd_Eli,dd_Janet,dd_Hurricane])
     mdf = pd.melt(cdf, id_vars=['Topologies'], var_name=['Topology'])      # MELT
     ax = sns.boxplot(x="Topologies", y="value", hue="Topology", data=mdf, palette="mako")  # RUN PLOT
@@ -170,10 +189,10 @@ if __name__ == "__main__":
         patch.set_edgecolor("black")
         patch.set_facecolor('None')
     handle, label = plt.gca().get_legend_handles_labels()
-    order = [0, 2, 1, 3]
-    plt.legend([handle[i] for i in order], [label[i] for i in order], loc='upper left', ncol=2)
+    order = [0, 3, 1, 4, 2, 5]
+    plt.legend([handle[i] for i in order], [label[i] for i in order], loc='upper left', ncol=3)
     plt.ylim((0.5, 1.35))
     plt.tight_layout()
-    plt.savefig(path_to_dir+'fig11_PPO_SAC.png', bbox_inches='tight',pad_inches = 0)
+    plt.savefig(path_to_dir+'fig11_PPO_KP.png', bbox_inches='tight',pad_inches = 0)
     plt.clf()
     plt.close()

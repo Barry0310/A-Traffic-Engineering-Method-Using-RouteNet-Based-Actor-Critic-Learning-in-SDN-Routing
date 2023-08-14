@@ -89,7 +89,7 @@ if __name__ == "__main__":
     # Iterate over all topologies and evaluate our DRL agent on all TMs
     for filename in os.listdir(enero_directory):
         dir_to_topology_rewards = enero_directory+"/"+filename
-    
+
         for subdir, dirs, files in os.walk(dir_to_topology_rewards):
             for file in files:
                 if file.endswith((".pckl")):
@@ -120,12 +120,12 @@ if __name__ == "__main__":
                         fail_8[topology_id*TMs+tm_id] = results[3]
                         #sap_fail_8[topology_id*TMs+tm_id] = results[8]
                         defo_fail_8[topology_id*TMs+tm_id] = results[1]
-                        
+
     ppo_directory = folder_dir+'/'+ppo
     # Iterate over all topologies and evaluate our DRL agent on all TMs
     for filename in os.listdir(ppo_directory):
         dir_to_topology_rewards = ppo_directory+"/"+filename
-    
+
         for subdir, dirs, files in os.walk(dir_to_topology_rewards):
             for file in files:
                 if file.endswith((".pckl")):
@@ -224,7 +224,7 @@ if __name__ == "__main__":
                     dd8_aux[tm_id,3]=fail_8[topology_id*TMs+tm_id]
                     dd8_aux[tm_id,4]=defo_fail_8[topology_id*TMs+tm_id]
                     dd8_aux[tm_id,2]=PPO_fail_8[topology_id*TMs+tm_id]
-            
+
             if num_fail==2:
                 dd2.loc[it] = [np.mean(dd2_aux[:,0]), np.mean(dd2_aux[:,1]), np.mean(dd2_aux[:,2]), np.mean(dd2_aux[:,3]), np.mean(dd2_aux[:,4]), num_fail]
             if num_fail == 4:
@@ -234,7 +234,7 @@ if __name__ == "__main__":
             if num_fail == 8:
                 dd8.loc[it] = [np.mean(dd8_aux[:,0]), np.mean(dd8_aux[:,1]), np.mean(dd8_aux[:,2]), np.mean(dd8_aux[:,3]), np.mean(dd8_aux[:,4]), num_fail]
             it += 1
-    
+
     # Define some hatches
     hatches = cycle(['\\', 'O', '/', '-', '*'])
     cdf = pd.concat([dd2,dd4,dd6,dd8])
@@ -282,8 +282,8 @@ if __name__ == "__main__":
         col = patch.get_facecolor()
         patch.set_edgecolor("black")
         patch.set_facecolor('None')
-    
+
     plt.legend(loc='upper left')
     plt.ylim((0.4, 2.5))
     plt.tight_layout()
-    plt.savefig(path_to_dir+'/fig13_'+topology_Name+'.png', bbox_inches='tight',pad_inches = 0)
+    plt.savefig(path_to_dir+'/fig14_'+topology_Name+'.png', bbox_inches='tight',pad_inches = 0)

@@ -29,9 +29,9 @@ if __name__ == "__main__":
     # This script is to plot the Figures 5 and 6 from COMNET 2022 paper.
 
     # Before executing this file we must execute the eval_on_single_topology.py file to evaluate the DRL model and store the results
-    # We also need to evaluate DEFO for these new topologies. To do this, I copy the corresponding 
+    # We also need to evaluate DEFO for these new topologies. To do this, I copy the corresponding
     # folder where it needs to be and I execute the script run_Defo_single_top.py for each topology.
-    # python figures_5_and_6.py -d SP_3top_15_B_NEW 
+    # python figures_5_and_6.py -d SP_3top_15_B_NEW
     parser = argparse.ArgumentParser(description='Parse files and create plots')
 
     # The flag 'd' indicates the directory where to store the figures
@@ -140,27 +140,27 @@ if __name__ == "__main__":
                         cost_drl_top3.append(results[14])
                         cost_enero_top3.append(results[16])
                     it += 1
-    
+
     plt.rcParams['axes.titlesize'] = 20
     plt.rcParams['figure.figsize'] = (11.5, 9)
     plt.rcParams['xtick.labelsize'] = 22
     plt.rcParams['ytick.labelsize'] = 22
     plt.rcParams['legend.fontsize'] = 17
     fig, ax = plt.subplots()
-    
+
     n = np.arange(1,len(cost_ls_top1)+1) / np.float(len(cost_ls_top1))
     Xs = np.sort(cost_ls_top1)
-    ax.step(Xs,n, c='cyan', linestyle=(0, (1,1)), label="LS EliBackbone", linewidth=4) 
+    ax.step(Xs,n, c='cyan', linestyle=(0, (1,1)), label="LS EliBackbone", linewidth=4)
     Xs = np.sort(cost_drl_top1)
-    ax.step(Xs,n,c='darkgreen', linestyle='-', label="DRL EliBackbone", linewidth=4) 
+    ax.step(Xs,n,c='darkgreen', linestyle='-', label="DRL EliBackbone", linewidth=4)
     Xs = np.sort(cost_enero_top1)
-    ax.step(Xs,n,c='maroon', linestyle=(0, (2.5, 1)),label="Enero EliBackbone", linewidth=4) 
+    ax.step(Xs,n,c='maroon', linestyle=(0, (2.5, 1)),label="Enero EliBackbone", linewidth=4)
     Xs = np.sort(cost_ls_top2)
-    ax.step(Xs,n, c='dodgerblue', linestyle=(0, (1, 2.5)),label="LS Janetbackbone", linewidth=4) 
+    ax.step(Xs,n, c='dodgerblue', linestyle=(0, (1, 2.5)),label="LS Janetbackbone", linewidth=4)
     Xs = np.sort(cost_drl_top2)
-    ax.step(Xs,n,c='lime', linestyle='-',label="DRL Janetbackbone", linewidth=4) 
+    ax.step(Xs,n,c='lime', linestyle='-',label="DRL Janetbackbone", linewidth=4)
     Xs = np.sort(cost_enero_top2)
-    ax.step(Xs,n,c='red', linestyle=(0, (2.5, 3)),label="Enero Janetbackbone", linewidth=4) 
+    ax.step(Xs,n,c='red', linestyle=(0, (2.5, 3)),label="Enero Janetbackbone", linewidth=4)
     Xs = np.sort(cost_ls_top3)
     ax.step(Xs,n, c='navy', linestyle=(0, (1,6)),label="LS HurricaneElectric", linewidth=4)
     Xs = np.sort(cost_drl_top3)
@@ -179,7 +179,7 @@ if __name__ == "__main__":
     plt.savefig(path_to_dir+'Figure_6.png', bbox_inches='tight',pad_inches = 0)
     plt.close()
 
- 
+
     # Define some hatches
     hatches = cycle(['\\', '-', '|', '', '*', '/'])
     cdf = pd.concat([dd_Eli,dd_Janet,dd_Hurricane])
@@ -234,6 +234,6 @@ if __name__ == "__main__":
     plt.legend([handle[i] for i in order], [label[i] for i in order], loc='upper left', ncol=3)
     plt.ylim((0.5, 1.35))
     plt.tight_layout()
-    plt.savefig(path_to_dir+'fig12.png', bbox_inches='tight',pad_inches = 0)
+    plt.savefig(path_to_dir+'fig13.png', bbox_inches='tight',pad_inches = 0)
     plt.clf()
     plt.close()

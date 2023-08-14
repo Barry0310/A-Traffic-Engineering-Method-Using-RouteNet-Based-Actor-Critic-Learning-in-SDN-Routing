@@ -5,7 +5,7 @@ import seaborn as sns
 from itertools import cycle
 import numpy as np
 import matplotlib.pyplot as plt
-import pickle5 as pickle
+import pickle
 
 def smooth(scalars, weight):  # Weight between 0 and 1
     last = scalars[0]  # First value in the plot (first timestep)
@@ -32,16 +32,13 @@ if __name__ == "__main__":
     # We also need to evaluate DEFO for these new topologies. To do this, I copy the corresponding
     # folder where it needs to be and I execute the script run_Defo_single_top.py for each topology.
     # python figures_5_and_6.py -d SP_3top_15_B_NEW
-    #parser = argparse.ArgumentParser(description='Parse files and create plots')
 
-    # The flag 'd' indicates the directory where to store the figures
-    #parser.add_argument('-d', help='differentiation string for the model', type=str, required=True, nargs='+')
-
-    #args = parser.parse_args()
-
-    enero = "SP_3top_15_B_NEW"
-    method = "PPO_L_KP"
-    differentiation_str = "Enero_3top_15_B_NEW_kp"#args.d[0]
+    K15 = "K=15"
+    K20 = "K=20"
+    K25 = "K=25"
+    differentiation_str1 = "Enero_3top_15_B_SAC67"
+    differentiation_str2 = "Enero_3top_15_B_SAC49"
+    differentiation_str3 = "Enero_3top_15_B_SAC66"
 
     drl_top1_uti = []
     ls_top1_uti = []
@@ -71,66 +68,62 @@ if __name__ == "__main__":
     path_to_dir = "../Figs/"
 
 
-    dd_Eli = pd.DataFrame(columns=["PPO_L_SP", method, "PPO_L_SP+LS", method+'+LS', 'Topologies'])
-    dd_Janet = pd.DataFrame(columns=["PPO_L_SP", method, "PPO_L_SP+LS", method+'+LS', 'Topologies'])
-    dd_Hurricane = pd.DataFrame(columns=["PPO_L_SP", method, "PPO_L_SP+LS", method+'+LS', 'Topologies'])
+    dd_Eli = pd.DataFrame(columns=[K15, K20, K25, 'Topologies'])
+    dd_Janet = pd.DataFrame(columns=[K15, K20, K25, 'Topologies'])
+    dd_Hurricane = pd.DataFrame(columns=[K15, K20, K25, 'Topologies'])
 
     # Iterate over all topologies and evaluate our DRL agent on all TMs
     for folder in folders:
-        enero_eval_res_folder = folder + enero + '/'
+        K15_eval_res_folder = folder + differentiation_str1 + '/'
         topology_eval_name = folder.split('NEW_')[1].split('/')[0]
-        for subdir, dirs, files in os.walk(enero_eval_res_folder):
+        for subdir, dirs, files in os.walk(K15_eval_res_folder):
             it = 0
             for file in files:
                 if file.endswith((".pckl")):
                     results = []
-                    path_to_pckl_rewards = enero_eval_res_folder + topology_eval_name + '/'
+                    path_to_pckl_rewards = K15_eval_res_folder + topology_eval_name + '/'
                     with open(path_to_pckl_rewards+file, 'rb') as f:
                         results = pickle.load(f)
                     if folder==folders[0]:
-                        dd_Eli.loc[it] = [results[9], 0,results[3], 0,topology_eval_name]
-                        cost_ls_top1.append(results[15])
-                        cost_drl_top1.append(results[14])
-                        cost_enero_top1.append(results[16])
+                        dd_Eli.loc[it] = [results[9],0, 0,topology_eval_name]
                     elif folder==folders[1]:
-                        dd_Janet.loc[it] = [results[9], 0, results[3], 0,topology_eval_name]
-                        cost_ls_top2.append(results[15])
-                        cost_drl_top2.append(results[14])
-                        cost_enero_top2.append(results[16])
+                        dd_Janet.loc[it] = [results[9],0, 0,topology_eval_name]
                     else:
-                        dd_Hurricane.loc[it] = [results[9], 0, results[3], 0,topology_eval_name]
-                        cost_ls_top3.append(results[15])
-                        cost_drl_top3.append(results[14])
-                        cost_enero_top3.append(results[16])
+                        dd_Hurricane.loc[it] = [results[9],0, 0,topology_eval_name]
                     it += 1
-        drl_eval_res_folder = folder + differentiation_str + '/'
-        for subdir, dirs, files in os.walk(drl_eval_res_folder):
+        K20_eval_res_folder = folder + differentiation_str2 + '/'
+        for subdir, dirs, files in os.walk(K20_eval_res_folder):
             it = 0
             for file in files:
                 if file.endswith((".pckl")):
                     results = []
-                    path_to_pckl_rewards = drl_eval_res_folder + topology_eval_name + '/'
+                    path_to_pckl_rewards = K20_eval_res_folder + topology_eval_name + '/'
                     with open(path_to_pckl_rewards+file, 'rb') as f:
                         results = pickle.load(f)
                     if folder==folders[0]:
                         dd_Eli.loc[it, method] = results[9]
-                        dd_Eli.loc[it, method+'+LS'] = results[3]
-                        cost_ls_top1.append(results[15])
-                        cost_drl_top1.append(results[14])
-                        cost_enero_top1.append(results[16])
                     elif folder==folders[1]:
                         dd_Janet.loc[it, method] = results[9]
-                        dd_Janet.loc[it, method + '+LS'] = results[3]
-                        cost_ls_top2.append(results[15])
-                        cost_drl_top2.append(results[14])
-                        cost_enero_top2.append(results[16])
                     else:
                         dd_Hurricane.loc[it, method] = results[9]
-                        dd_Hurricane.loc[it, method + '+LS'] = results[3]
-                        cost_ls_top3.append(results[15])
-                        cost_drl_top3.append(results[14])
-                        cost_enero_top3.append(results[16])
                     it += 1
+        K25_eval_res_folder2 = folder + differentiation_str3 + '/'
+        for subdir, dirs, files in os.walk(K25_eval_res_folder):
+            it = 0
+            for file in files:
+                if file.endswith((".pckl")):
+                    results = []
+                    path_to_pckl_rewards = K25_eval_res_folder2 + topology_eval_name + '/'
+                    with open(path_to_pckl_rewards+file, 'rb') as f:
+                        results = pickle.load(f)
+                    if folder==folders[0]:
+                        dd_Eli.loc[it, method2] = results[9]
+                    elif folder==folders[1]:
+                        dd_Janet.loc[it, method2] = results[9]
+                    else:
+                        dd_Hurricane.loc[it, method2] = results[9]
+                    it += 1
+
     plt.rcParams['axes.titlesize'] = 20
     plt.rcParams['figure.figsize'] = (11.5, 9)
     plt.rcParams['xtick.labelsize'] = 22
@@ -138,14 +131,13 @@ if __name__ == "__main__":
     plt.rcParams['legend.fontsize'] = 17
     fig, ax = plt.subplots()
 
-
     plt.xlim((0, 50.0))
     plt.xticks(np.arange(0, 50, 8))
-    #plt.grid(color='gray')
     plt.tight_layout()
 
+
     # Define some hatches
-    hatches = cycle(['-', '|', '*', '/'])
+    hatches = cycle(['\\', '-', '|'])
     cdf = pd.concat([dd_Eli,dd_Janet,dd_Hurricane])
     mdf = pd.melt(cdf, id_vars=['Topologies'], var_name=['Topology'])      # MELT
     ax = sns.boxplot(x="Topologies", y="value", hue="Topology", data=mdf, palette="mako")  # RUN PLOT
@@ -191,12 +183,9 @@ if __name__ == "__main__":
         #patch.set_edgecolor(col)
         patch.set_edgecolor("black")
         patch.set_facecolor('None')
-
-    handle, label = plt.gca().get_legend_handles_labels()
-    order = [0, 2, 1, 3]
-    plt.legend([handle[i] for i in order], [label[i] for i in order], loc='upper left', ncol=2)
+    plt.legend(loc='upper left', ncol=3)
     plt.ylim((0.5, 1.35))
     plt.tight_layout()
-    plt.savefig(path_to_dir+'fig9_ENERO_KP.png', bbox_inches='tight',pad_inches = 0)
+    plt.savefig(path_to_dir+'fig9.png', bbox_inches='tight',pad_inches = 0)
     plt.clf()
     plt.close()

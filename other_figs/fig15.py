@@ -224,7 +224,7 @@ if __name__ == "__main__":
     lgd = plt.legend(loc="lower left", bbox_to_anchor=(-0.2, -0.4), ncol=3)
     plt.grid(c='grey')
     #plt.tight_layout()
-    plt.savefig(path_to_dir+"fig14_PPO_Rel_Perf_all_tops.png", bbox_extra_artists=(lgd,), bbox_inches='tight') #"Figure_9_Rel_Perf_all_tops.png"
+    plt.savefig(path_to_dir+"fig15_PPO_Rel_Perf_all_tops.png", bbox_extra_artists=(lgd,), bbox_inches='tight') #"Figure_9_Rel_Perf_all_tops.png"
     # plt.show()
     plt.clf()
     plt.close()
