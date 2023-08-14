@@ -101,11 +101,11 @@ if __name__ == "__main__":
                     with open(path_to_pckl_rewards+file, 'rb') as f:
                         results = pickle.load(f)
                     if folder==folders[0]:
-                        dd_Eli.loc[it, method] = results[9]
+                        dd_Eli.loc[it, K20] = results[9]
                     elif folder==folders[1]:
-                        dd_Janet.loc[it, method] = results[9]
+                        dd_Janet.loc[it, K20] = results[9]
                     else:
-                        dd_Hurricane.loc[it, method] = results[9]
+                        dd_Hurricane.loc[it, K20] = results[9]
                     it += 1
         K25_eval_res_folder2 = folder + differentiation_str3 + '/'
         for subdir, dirs, files in os.walk(K25_eval_res_folder):
@@ -117,11 +117,11 @@ if __name__ == "__main__":
                     with open(path_to_pckl_rewards+file, 'rb') as f:
                         results = pickle.load(f)
                     if folder==folders[0]:
-                        dd_Eli.loc[it, method2] = results[9]
+                        dd_Eli.loc[it, K25] = results[9]
                     elif folder==folders[1]:
-                        dd_Janet.loc[it, method2] = results[9]
+                        dd_Janet.loc[it, K25] = results[9]
                     else:
-                        dd_Hurricane.loc[it, method2] = results[9]
+                        dd_Hurricane.loc[it, K25] = results[9]
                     it += 1
 
     plt.rcParams['axes.titlesize'] = 20
