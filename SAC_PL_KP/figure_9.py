@@ -178,7 +178,7 @@ if __name__ == "__main__":
         if new_uti_ALL[i][0] in dict_tops:
             print(i, new_uti_ALL[i][0])
     LS_difference = []
-    for i in len(uti_DRL_HILL):
+    for i in range(len(uti_DRL_HILL)):
         LS_difference.append(uti_DRL_HILL[i]-uti_DRL_SP[i])
     print('max', method+'LS', '-', method, max(LS_difference))
     #uti_SAP = []
