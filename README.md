@@ -31,5 +31,6 @@ Optimization with Deep Reinforcement Learning](https://arxiv.org/pdf/2109.10883.
     ```
     python fig15.py -d Enero_3top_15_B_SAC49 -p ../Enero_datasets/rwds-results-1-link_capacity-unif-05-1-zoo
     ```
+- 其餘實驗相關結果圖在 SAC_PL_KP 的 Images 目錄中
 
 - SAC_PL_KP 中 SAC49 為 K=20，SAC66 為 K=25，SAC67 為 K=15
